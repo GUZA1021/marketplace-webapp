@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}{{ item.title }}{% endblock %}
+
+{% block css%}
+<link rel="stylesheet" href="{{ url_for('static', filename='item_page.css')}}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <div class="row g-4">
+        <!-- left side -->
+         <div class="col-lg-7">
+            <div class="image-container">
+                <img src="{{ url_for('static', filename='uploads/Item/' + (item.picture if item.picture else 'default.png') )}}" alt="{{ item.title }}" class="img-details">
+            </div>
+         </div>
+
+         <div class="col-lg-5">
+            <div class="information">
+            <h2 class="mb-2">{{ item.title }}</h2>
+            <div class="price mb-3">{{ item.price }} DKK</div>
+            <div class="city mb-3">Location: {{ item.city }}</div>
+            <div class="mb-3">
+                <h6 class="badge bg-success">Condition: {{ item.condition }}</h6>
+                <h6 class="badge bg-secondary">Category: {{ item.category }}</h6>
+                {% if item.status == "SOLD" %}
+                    <h6 class="badge bg-danger">SOLD</h6>
+                {% endif %}
+            </div>
+            <div class="mb-4">
+                <h6>Description</h6>
+                <div class="description-box">
+                    {{ item.description}}
+                </div>
+            </div>
+
+            <div class="text-center d-flex gap-2 justify-content-center">
+
+                {% if current_user.is_authenticated %}
+                    <!-- Buyer -->
+                    {% if item.user_id != current_user.id and item.status == "AVAILABLE" %}
+                        <a href="{{ url_for('conversations.view_conversation' , listing_id=item.id)}}" class="btn btn-outline-primary">Message seller</a>
+                    {% endif %}
+
+                    <!-- seller -->
+                    {% if item.user_id == current_user.id %}
+                        <form method="post" action="{{ url_for('Listings.delete_listing', listing_id=item.id) }}">
+                            <button type="submit" class="btn btn-danger">
+                                Delete Listing
+                            </button>
+                        </form>
+
+                    {% endif %}
+                {% endif %} 
+            </div>
+        </div>
+         </div>
+    </div>
+</div>
+
+{% endblock %}

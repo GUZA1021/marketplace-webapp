@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}Settings{% endblock %}
+
+{% block css%}
+<link rel="stylesheet" href="{{ url_for('static', filename='settings.css')}}">
+{% endblock %}
+
+
+{% block content %}
+<div class="container mt-4">
+
+    <!-- Leftcol -->
+    <div class="row">
+        <div class="col-lg-4 text-center" >
+                <img src="{{url_for('static', filename='uploads/' + current_user.picture)}}" alt="Profile picture" class="profile-image rounded-circle">
+            <h4>Profile</h4>
+            <p><strong>Username:</strong> {{ current_user.name }}</p>
+
+        </div>
+
+
+
+        <!-- rightcol -->
+        <div class="col-lg-8 settings-right">
+            <h3 class="mb-3">Settings</h3>
+
+            <form method="post" enctype="multipart/form-data" class="form-settings">
+            <div class="mb-2">
+                <label for="username" class="form-label">Username</label>
+                {{ form.username(class="form-control form-control-sm") }}
+            </div>
+
+            <div class="mb-2">
+                <label for="email" class="form-label">Email</label>
+                {{ form.email(class="form-control form-control-sm") }}
+            </div>
+
+            <div class="mb-2">
+                <label for="password" class="form-label">Password</label>
+                {{ form.password(class="form-control form-control-sm") }}
+            </div>
+                
+            <div class="mb-2">
+                <label for="password_confirm" class="form-label">Confirm Password</label>
+                {{ form.password_confirm(class="form-control form-control-sm") }}
+            </div>
+
+            <div class="mb-2">
+                <label for="address_name" class="form-label">Address</label>
+                {{ form.address_name(class="form-control form-control-sm") }}
+            </div>
+
+            <div class="mb-2">
+                <label for="address_num" class="form-label">Address Number</label>
+                {{ form.address_num(class="form-control form-control-sm") }}
+            </div>
+
+            <div class="mb-2">
+                <label for="city" class="form-label">City</label>
+                {{ form.city(class="form-control form-control-sm") }}
+            </div>
+
+            <div class="mb-2">
+                <label for="zipcode" class="form-label">Zip Code</label>
+                {{ form.zipcode(class="form-control form-control-sm") }}
+            </div>
+
+            <div class="mb-2">
+                <label for="picture" class="form-label">Profile Picture</label>
+                {{ form.picture(class="form-control") }}
+            </div>
+
+                <button type="submit" class="btn btn-primary w-100">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

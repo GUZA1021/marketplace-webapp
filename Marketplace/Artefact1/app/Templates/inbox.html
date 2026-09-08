@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Inbox{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <h3 class="mb-3">Inbox</h3>
+    {% if conversations %}
+        <ul>
+            {% for x in conversations %}
+                <li>
+                    <strong>{{ x.listing.title }}</strong>
+                    <small>
+                        {% if x.buyer_id == current_user.id %}
+                            Seller: {{ x.listing.seller.name}}
+                        {% else %}
+                            Buyer: {{ x.buyer_id }}
+                        {% endif %}
+                    </small>
+
+                    <a href="{{ url_for('conversations.view_conversation', listing_id=x.listing_id)}}">Open</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No conversation yet</p>
+    {% endif %}
+</div>
+{% endblock %}

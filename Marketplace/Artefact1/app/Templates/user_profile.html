@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}User Profile{% endblock %}
+
+{% block css%}
+<link rel="stylesheet" href="{{ url_for('static', filename='browse.css')}}">
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <div class="row g-4">
+        <div class="col-lg-4">
+            <h4 class="mb-1">{{ profile.username }}</h4>
+            <div class="text-muted">Profile page</div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="reviews">
+                <h4 class="mb-4">Reviews</h4>
+                {% if reviews %}
+                {% for x in reviews %}
+                <div class="mb-2 p-2 border rounded">
+                    <strong>{{ x.rating }}/5</strong>
+                    <div class="">{{ x.comment }}</div>
+                    <div class="text-muted">{{ x.date }}</div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div>No reviews yet.</div>
+                {% endif %}
+            </div>
+            <div class="listings">
+                <h4 class="mb-4">Listings</h4>
+                {% if items %}
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+                    {% for item in items %}
+                    <div class="col">
+                        <div class="card h-100">
+                            <a href="{{ url_for('Listings.listing_page', listing_id=item.id )}}">
+                                <img class="item-img" src="{{ url_for('static', filename='uploads/Item/' + (item.picture if item.picture else 'default.png') )}}" alt="item image">
+                            </a>
+                            <div class="card-body">
+                                <a href="/item/{{ item.id }}">
+
+                                    <h6 class="card-title mb-1">{{ item.title }}</h6>
+                                </a>
+                                {% if is_own_user %}
+                                {% if item.status == "AVAILABLE" %}
+                                <form method="post" action="{{ url_for('Listings.delete_listing', listing_id=item.id)}}"
+                                    class="mt-2">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger w-100">Delete</button>
+                                </form>
+                                {% else %}
+                                <div class="mt-2">
+                                <button class="btn btn-sm btn-secondary w-100" disabled>Sold</button>
+
+                                </div>
+                                {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+                {% else %}
+                <h6 class="mb-3">No listings yet.</h6>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

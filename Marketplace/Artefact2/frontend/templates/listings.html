@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Listings{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Marketplace Listings</h1>
+
+    <a href="{{ url_for('sell') }}" class="btn btn-success mb-3">
+        Create new listing
+    </a>
+
+    {% if listings %}
+        <div class="row">
+            {% for listing in listings %}
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ listing.title or "Untitled item" }}</h5>
+
+                            {% if listing.description %}
+                                <p class="card-text">{{ listing.description }}</p>
+                            {% endif %}
+
+                            <p><strong>Price:</strong> {{ listing.price }}</p>
+                            <p><strong>Status:</strong> {{ listing.status }}</p>
+
+                            {% if listing.status == "AVAILABLE" %}
+                                <form method="post" action="{{ url_for('buy', listing_id=listing.id) }}">
+                                    <button class="btn btn-primary btn-sm">Buy</button>
+                                </form>
+                            {% else %}
+                                <span class="badge bg-secondary">Sold</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No listings yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

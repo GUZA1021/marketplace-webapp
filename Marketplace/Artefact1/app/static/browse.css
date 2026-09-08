@@ -1,0 +1,29 @@
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+
+.col {
+    margin-bottom: 20px;
+}
+
+.card{
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+.card:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 3px 5px rgb(0, 0, 0);
+}
+
+
+.item-img{
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    display: block;
+    padding: 12px;
+}

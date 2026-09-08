@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Sell{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-4 col-md-6 col-sm-8">
+
+        <h2 class="mb-3 text-center">Sell Your Item</h2>
+        <form method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="title" class="form-label">Item Name</label>
+                {{ form.title(class="form-control") }}
+                <!-- <input type="text" class="form-control" placeholder="Title" name="title" required> -->
+            </div>
+
+            <label for="price">Price</label>
+            <div class="mb-3">
+                {{ form.price(class="form-control") }}
+                <!-- <input type="text" class="form-control" name="price" placeholder="Price" required> -->
+                <span class="input-group-text">DKK</span>
+            </div>
+
+            <div class="mb-3">
+                <label for="itemCategory" class="form-label">Category</label>
+                <select name="category" id="itemCategory" class="form-select" required>
+                    <option selected disabled>Choose category...</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="furniture">Furniture</option>
+                    <option value="clothing">Clothing</option>
+                    <option value="books">Books</option>
+                    <option value="toys">Toys</option>
+                    <option value="auto">Cars and MC</option>
+                    <option value="pet">Pet Supplies</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="conditionCategory" class="form-label">Condition</label>
+                <select name="condition" id="conditionCategory" class="form-select" required>
+                    <option selected disabled>Choose category...</option>
+                    <option value="new">New</option>
+                    <option value="likenew">Like New</option>
+                    <option value="good">Good</option>
+                    <option value="poor">Poor</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                {{ form.description(class="form-control", placeholder="Describe your item in detail") }}
+                <!-- <textarea class="form-control" name="description" id="description" aria-label="With textarea"
+                    placeholder="Describe your item in details..." required></textarea> -->
+
+            </div>
+
+            <div class="mb-3">
+                <label for="city" form="form-label">City</label>
+                {{ form.city(class="form-control") }}
+                <!-- <input type="text" class="form-control" placeholder="" name="city" required> -->
+            </div>
+
+            <div class="mb-3">
+                <label for="picture" form="form-label">Upload Image</label>
+                {{ form.picture(class="form-control") }}
+                <!-- <input type="file" class="form-control" id="itemImage" name="image" placeholder=""
+                    aria-label="Recipient's username" aria-describedby="basic-addon2" required> -->
+            </div>
+            <button type="submit" class="btn btn-success w-100">Post Item</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+{% block css%}<link rel="stylesheet" href="{{ url_for('static', filename='reglogin.css')}}">{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-4 col-md-6 col-sm-8">
+    <h3 class="mb-3 text-center">Log In</h3>
+        <form class="" method="post">
+        <div class="mb-2">
+            <label for="email" class="form-label">Username</label>
+            {{ form.email(class="form-control form-control-sm") }}
+        </div>
+
+        <div class="mb-2">
+            <label for="inputPassword4" class="form-label">Password</label>
+            {{ form.password(class="form-control form-control-sm") }}
+        </div>
+
+        <div class="text-center mb-3">
+            <button type="submit" class="btn btn-success w-100">Log In</button>
+        </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

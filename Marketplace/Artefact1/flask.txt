@@ -1,0 +1,10 @@
+Flask
+Flask-SQLAlchemy
+Flask-WTF
+WTForms
+Faker
+Flask-Login
+Flask-Bcrypt
+email_validator
+werkzeug
+

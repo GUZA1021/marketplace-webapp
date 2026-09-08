@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}Chat - {{ item.title }}{% endblock %}
+
+{% block css%}
+<link rel="stylesheet" href="{{ url_for('static', filename='conversation.css')}}">
+
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <div>
+                        <h5 class="mb-0">{{ item.title }}</h5>
+                        <small class="text-muted">{{ item.price }} DKK</small>
+                    </div>
+                    <div class="chat-actions">
+                        <a href="{{ url_for('Listings.listing_page', listing_id=item.id)}}"
+                            class="btn btn-outline-primary">View Item</a>
+                        <!-- Seller -->
+                        {% if  item.user_id == current_user.id and item.status == "AVAILABLE" %}
+                        <form method="post" action="{{ url_for('Listings.mark_as_sold', listing_id=item.id)}}">
+                            <input type="hidden" name="buyer_id" value="{{ convo.buyer_id}}">
+                            <button type="submit" class="btn btn-success">
+                                Mark as Sold
+                            </button>
+                        </form>
+                        {% endif %}
+
+                        <!-- Buyer -->
+                        {% if  item.user_id != current_user.id and item.status == "SOLD" %}
+                        <form method="post" action="{{ url_for('Listings.review_user', listing_id=item.id)}}">
+                            <button type="submit" class="btn btn-success">
+                                Review User
+                            </button>
+                        </form>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="chat-messages">
+                    {% for x in messages %}
+                    {% if x.sender_id == current_user.id %}
+                    <div class="message message-own">
+                        <div class="bubble">
+                            {{ x.text }}
+                            <div class="time">{{ x.created_at.strftime("%H:%M") }}</div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="message message-other">
+                        <div class="bubble">
+                            {{ x.text }}
+                            <div class="time">{{ x.time }}</div>
+                        </div>
+                    </div>
+
+                    {% endif %}
+                    {% endfor %}
+                </div>
+
+
+
+                <form method="post" class="message-input">
+                    <input type="text" name="text" id="text" class="form-control" placeholder="Write a message..."
+                        required>
+                    <button class="btn btn-primary">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

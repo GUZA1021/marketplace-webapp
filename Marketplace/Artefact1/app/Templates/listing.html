@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Browse{% endblock %}
+
+{% block css%}
+<link rel="stylesheet" href="{{ url_for('static', filename='browse.css')}}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="row mb-3">
+        <div class="col-12">
+            <h2 class="mb-1">Browse Marketplace</h2>
+        </div>
+    </div>
+    <!-- sidebar filters -->
+    <div class="row g-3">
+        <div class="col-lg-3">
+            <div class="filter">
+
+                <h5>Filters</h5>
+
+                <form method="get">
+                    <div class="mb-3">
+                        <label class="form-label">Search</label>
+                        <input type="text" class="form-control form-control-sm" name="search" id="search"
+                            placeholder="Search items...">
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Category</label>
+                        <select class="form-select form-select-sm" name="category">
+                            <option value="">Alle Categories</option>
+                            <option value="electronics">Electronics</option>
+                            <option value="furniture">Furniture</option>
+                            <option value="clothing">Clothing</option>
+                            <option value="books">Books</option>
+                            <option value="toys">Toys</option>
+                            <option value="auto">Auto</option>
+                            <option value="pets">Pets</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm w-100">Apply</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-lg-9">
+            <div class="d-flex mb-3">
+                <small class="text-muted">{{ items|length }} items found</small>
+
+                <select class="form-select form-select-sm" name="sort" id="">
+                    <option value="newest">Newest First</option>
+                    <option value="price_low">Price: Low to High</option>
+                    <option value="price_high">Price: High to Low</option>
+                </select>
+            </div>
+
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+                {% for item in items %}
+                <div class="col">
+                    <a href="/listings/{{ item.id }}">
+                    <div class="card h-100">
+                        <img class="item-img" src="{{ url_for('static', filename='uploads/Item/' + (item.picture if item.picture else 'default.png') )}}" alt="item image">
+                        <div class="card-body align-start">
+                            <small class="text-muted mb-1">⚲ {{ item.city }}</small>
+                            <h6 class="card-title mb-1 fw-bold">{{ item.title }}</h6>
+                            <p class="mb-1 text-muted">{{ item.price }}</p>
+                            
+                        </div>
+                    </div>
+                </a>
+                </div>
+                {% endfor %}
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

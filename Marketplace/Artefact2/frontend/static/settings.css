@@ -1,0 +1,21 @@
+.profile-image{
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: 2px solid #dfd9d9;
+}
+
+
+.form-settings{
+    padding: 0.25rem 0.5rem;
+    height: auto;
+}
+
+
+
+.settings-right{
+    background-color: #ffffff;
+    border: 1px solid #e7e7e7;
+    border-radius: 8px;
+    padding: 10px;
+}

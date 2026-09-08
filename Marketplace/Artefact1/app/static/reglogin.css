@@ -1,0 +1,14 @@
+.form-control{
+    border-radius: 8px;
+}
+
+.btn-success {
+    border-radius: 10px;
+    padding: 2px;
+    font-weight: 500;
+}
+
+.btn-success:hover {
+    transform: translateY(-1px);
+    transition: 0.2s ease;
+}

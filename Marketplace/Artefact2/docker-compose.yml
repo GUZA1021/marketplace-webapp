@@ -1,0 +1,34 @@
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "5002:5002"
+    depends_on:
+      - auth
+      - listings    
+
+  auth:
+    build: ./auth 
+    ports:
+      - "5000:5000"
+    volumes:
+      - db_auth:/auth/instance
+
+  listings:
+    build: ./listings
+    ports:
+      - "5001:5001"
+    volumes:
+      - db_listings:/listings/instance
+
+  reviews:
+    build: ./reviews
+    ports:
+      - "5003:5003"
+    volumes:
+      - db_reviews:/reviews/instance
+
+volumes:
+  db_auth:
+  db_listings:
+  db_reviews:
